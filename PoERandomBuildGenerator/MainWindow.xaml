@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:PoERandomBuildGenerator"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Random Build Generator"
-    Width="800"
-    Height="450"
+    Width="1000"
+    Height="650"
     mc:Ignorable="d">
     <Window.DataContext>
         <local:PoERandomBuildGeneratorViewModel />
@@ -33,7 +33,7 @@
                 VerticalAlignment="Top"
                 Content="Generate Build" />
 
-            <ListView Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Keystones}">
+            <ListView Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Keystones}" Margin="5,10,10,277" Grid.RowSpan="2">
                 <ListView.View>
                     <GridView ColumnHeaderToolTip="Available Keystones">
                         <GridViewColumn Header="Keystone" Width="200">
@@ -53,7 +53,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Ascendancies}">
+            <ListView Grid.Column="1" ItemsSource="{Binding Ascendancies}" Margin="5,45,10,10" Grid.Row="1">
                 <ListView.View>
                     <GridView ColumnHeaderToolTip="Available Ascendancies">
                         <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Ascendancy" Width="200"/>
@@ -95,7 +95,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="{Binding Build.Ascendancy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="Auto" />
-            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Build.Keystones}" Margin="0,45,0,0">
+            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Build.Keystones}" Margin="10,45,0,10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Ascendancy" Width="Auto"/>
