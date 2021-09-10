@@ -14,6 +14,8 @@ namespace PoERandomBuildGenerator
 
         public PassiveTreeHelper()
         {
+            // disables Cluster keystones at the start
+            // user can enable them again
             disabledByDefaultKeyStones = new() {
                 12953,
                 60069,
@@ -30,6 +32,7 @@ namespace PoERandomBuildGenerator
         {
             var json = File.ReadAllText("data.json");
             var passiveTree = JsonConvert.DeserializeObject<PassiveTree>(json);
+            // 37081 is Pit Fighter, a disabled keystone
             Keystones = passiveTree.Nodes.Select(x => x.Value).Where(x => x.IsKeystone == true && x.Skill != 37081).OrderBy(x => x.Name).ToList();
 
             foreach (var item in disabledByDefaultKeyStones)
