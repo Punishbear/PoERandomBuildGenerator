@@ -44,18 +44,18 @@ namespace PoERandomBuildGenerator
             });
         }
 
-        private void MyItemsSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void Keystones_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
                 foreach (Node item in e.NewItems)
-                    item.PropertyChanged += MyType_PropertyChanged;
+                    item.PropertyChanged += Node_PropertyChanged;
 
             if (e.OldItems != null)
                 foreach (Node item in e.OldItems)
-                    item.PropertyChanged -= MyType_PropertyChanged;
+                    item.PropertyChanged -= Node_PropertyChanged;
         }
 
-        void MyType_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Node_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName is nameof(Node.IsActive))
                 MaxKeystoneAmount = Keystones.Where(x => x.IsActive).Count();
@@ -66,7 +66,7 @@ namespace PoERandomBuildGenerator
             var passiveTree = new PassiveTreeHelper();
 
             Keystones = new();
-            Keystones.CollectionChanged += MyItemsSource_CollectionChanged;
+            Keystones.CollectionChanged += Keystones_CollectionChanged;
 
             foreach (var item in passiveTree.Keystones)
             {

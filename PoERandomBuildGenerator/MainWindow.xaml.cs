@@ -21,15 +21,11 @@ namespace PoERandomBuildGenerator
     /// </summary>
     public partial class MainWindow : Window
     {
-        //PoERandomBuildGeneratorViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
 
             genBuildButton.Click += GenBuildButton_Click;
-
-            //viewModel = new PoERandomBuildGeneratorViewModel();
-            //DataContext = viewModel;
         }
 
         private void GenBuildButton_Click(object sender, RoutedEventArgs e)
