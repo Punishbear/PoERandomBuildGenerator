@@ -1,0 +1,114 @@
+﻿<Window
+    x:Class="PoERandomBuildGenerator.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PoERandomBuildGenerator"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Random Build Generator"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <local:PoERandomBuildGeneratorViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <local:StatsConverter x:Key="statsConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Button
+                x:Name="genBuildButton"
+                Margin="0,141,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Content="Generate Build" />
+
+            <ListView Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Keystones}">
+                <ListView.View>
+                    <GridView ColumnHeaderToolTip="Available Keystones">
+                        <GridViewColumn Header="Keystone" Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Name}" ToolTip="{Binding Stats, Converter={StaticResource statsConverter}}" Padding="0"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="active" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Ascendancies}">
+                <ListView.View>
+                    <GridView ColumnHeaderToolTip="Available Ascendancies">
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Ascendancy" Width="200"/>
+                        <GridViewColumn Header="active" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label
+                Margin="10,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Number of Keystones:" />
+            <Slider
+                x:Name="keystoneAmount"
+                Width="380"
+                Margin="0,41,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                IsSnapToTickEnabled="True"
+                Maximum="{Binding MaxKeystoneAmount}"
+                Minimum="0"
+                TickFrequency="1"
+                Value="3" />
+            <Label
+                Margin="142,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="{Binding ElementName=keystoneAmount, Path=Value}" />
+            <Label
+                Grid.Row="1"
+                Width="Auto"
+                Margin="10,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="{Binding Build.Ascendancy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="Auto" />
+            <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Build.Keystones}" Margin="0,45,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Ascendancy" Width="Auto"/>
+                        <GridViewColumn Header="Description" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding Stats, Converter={StaticResource statsConverter}}" ToolTip="{Binding Stats, Converter={StaticResource statsConverter}}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>
